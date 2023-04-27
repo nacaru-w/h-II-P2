@@ -1,0 +1,18 @@
+{
+    "extends": "stylelint-config-standard-scss",
+    "rules": {
+        "unit-allowed-list": [
+            "em",
+            "rem",
+            "px",
+            "%",
+            "deg",
+            "vw"
+        ],
+        "selector-class-pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+        "string-quotes": "double",
+        "color-function-notation": "modern",
+        "no-descending-specificity": null,
+        "scss/comment-no-empty": null
+    }
+}
