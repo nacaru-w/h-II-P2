@@ -9,3 +9,6 @@
 /**
  * Write any other JavaScript below
  */
+
+// Importing bootstrap
+import * as bootstrap from '../../../node_modules/bootstrap/js'
