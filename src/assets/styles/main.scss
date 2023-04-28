@@ -18,6 +18,8 @@
 // @import "some-node-module";
 // @import "@some-company/some-node-module";
 
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+
 /**
  * Import layouts
  * It's a best practice to use a different partial for each page
