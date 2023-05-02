@@ -106,13 +106,37 @@ También se desactivó la regla estándar `comment-no-emptyp` que forma parte de
 
 ## Instalación de bootstrap
 
+Se integró Bootstrap en el repositorio local, ejecutando el siguiente comando:
+
+```bash
+npm i --save bootstrap @popperjs/core
+```
+
 
 
 ## Justificación y aplicación según la guía de estilo
 
-# Elaboración de la página web
 
 ## Elección de la paleta de colores
+
+Para la paleta de colores, se testearon varias combinaciones utilizando al aplicacion [coolors.co](coolors.co). Finalmente, se decidió usar la siguiente paleta de colores:
+
+![Paleta de colores del sitio](doc_imgs/color_palette.png){ width=300px }
+
+* El color #F5F5F5 (whitesmoke) se asignó a 
+* El color #1f1f1f (eerie black) se asignó a
+* El color #cccccc (silver) se asignó a
+* El color #333333 (jet) se asignó a
+* El color #f8ddc9 (champagne pink) se asignó a
+
+Estos colores fueron asignados a variables SCSS en el archivo `_variables.scss`.
+
+También se han usado ocasionalmente algunos de los [colores propuestos en Bootstrap](https://getbootstrap.com/docs/5.3/customize/color/), cuando se ha considerado que estos encajaban bien con la paleta de colores elegida y el contexto. 
+
+## Iconografía
+
+Para los iconos de la web, decidió usarse el paquete de en The Noun Project (disponible [en este enlace](https://thenounproject.com/browse/collection-icon/sports-118176/?p=1))
+# Elaboración de la página web
 
 ## Desarrollo del código HTML
 

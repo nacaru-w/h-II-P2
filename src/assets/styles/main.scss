@@ -18,7 +18,7 @@
 // @import "some-node-module";
 // @import "@some-company/some-node-module";
 
-@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+// @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
 
 /**
  * Import layouts
@@ -30,3 +30,5 @@
 /**
  * Do NOT include anything else in this file!
  */
+
+@import "utility_classes";
