@@ -30,8 +30,6 @@ a:visited {
 
 // header
 
-
-
 header {
   padding-top: 2em;
   font-family: $normal-font;
@@ -121,6 +119,151 @@ header {
 
       li {
         padding-inline: 2em;
+      }
+
+    }
+
+  }
+
+}
+
+//
+// Rules that apply to the footer
+//
+// The footer has been organized in two elements: a main footer that holds most the information
+// and a second, sub-footer that includes copyright and authorship info. 
+
+footer {
+  background-color: $secondary-contrast-color;
+  font-family: $normal-font;
+  font-size: .9em;
+  padding-block: 2em;
+
+  ul * {
+    list-style-type: none;
+  }
+
+  li * {
+    margin-left: -1em;
+  }
+
+  svg:hover * {
+    fill: $darker-colorful-element-color;
+    transition: fill 1s ease;
+  }
+
+  div.main-footer {
+    display: flex;
+    justify-content: space-around;
+    width: min(90%, 1000px);
+    padding-top: 1em;
+    margin: 0 auto;
+
+    // p.column-title {
+    //   border-bottom: solid 1px $darker-eggplant;
+    // }
+
+    div.left-side-footer {
+      padding-inline: .5em;
+
+      button {
+        width: min(110%, 142px);
+        margin: 0 auto;
+        cursor: pointer;
+        border: none;
+        font-family: $normal-font;
+        font-size: 0.8em;
+        box-shadow: none;
+        font-weight: bold;
+        border-radius: 6px;
+        padding: .75em .5em;
+      }
+
+      div.mobile-app-info {
+        padding-block: 1em;
+
+        p {
+          text-align: center;
+        }
+
+        div.mobile-app-logos {
+          display: flex;
+          justify-content: space-evenly;
+          height: 3em;
+
+          svg {
+            width: 1.8em;
+            cursor: pointer;
+          }
+
+          svg.play-store {
+            padding-top: .25em;
+          }
+
+        }
+
+      }
+
+    }
+
+    div.right-side-footer {
+
+      .column-title {
+        font-weight: bold;
+      }
+
+      .phone-number {
+        padding-top: 0.75em;
+      }
+
+    }
+
+  }
+
+  div.sub-footer {
+    display: flex;
+    justify-content: space-between;
+    width: min(90%, 1000px);
+    border-top: solid 1px $text-color;
+    margin: 2em auto 0;
+    padding-block: .75em;
+
+    .main-logo {
+      width: 5em;
+      height: auto;
+    }
+
+    div.pages-in-footer {
+      display: flex;
+      align-items: center;
+
+      p {
+        padding-right: 2em;
+      }
+
+      ul {
+        display: flex;
+
+        li {
+          padding-right: 1.35em;
+          white-space: nowrap;
+        }
+
+        li:not(:last-child)::after {
+          content: " |";
+        }
+      }
+    }
+
+    div.social-media-icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      svg {
+        cursor: pointer;
+        margin: 0 0.5em;
+        width: 1.5em;
       }
 
     }
