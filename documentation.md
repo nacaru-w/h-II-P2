@@ -123,11 +123,11 @@ Para la paleta de colores, se testearon varias combinaciones utilizando al aplic
 
 ![Paleta de colores del sitio](doc_imgs/color_palette.png){ width=300px }
 
-* El color #F5F5F5 (whitesmoke) se asignó a 
-* El color #1f1f1f (eerie black) se asignó a
+* El color #F5F5F5 (whitesmoke) se asignó a los fondos básicos
+* El color #1f1f1f (eerie black) se asignó al color de los textos
 * El color #cccccc (silver) se asignó a
 * El color #333333 (jet) se asignó a
-* El color #f8ddc9 (champagne pink) se asignó a
+* El color #f8ddc9 (champagne pink) se asignó a elementos de contraste, creándose una tonalidad más oscura mediante el módulo SCSS `@color`, la cual se aplicó a los enlaces a través de la pseudoclase `hover`.
 
 Estos colores fueron asignados a variables SCSS en el archivo `_variables.scss`.
 
@@ -135,13 +135,17 @@ También se han usado ocasionalmente algunos de los [colores propuestos en Boots
 
 ## Iconografía
 
-Para los iconos de la web, decidió usarse el paquete de en The Noun Project (disponible [en este enlace](https://thenounproject.com/browse/collection-icon/sports-118176/?p=1))
+Para los iconos de la web, decidió usarse el paquete de Sports por ainul muttaqin en The Noun Project (disponible [en este enlace](https://thenounproject.com/browse/collection-icon/sports-118176/?p=1)), liberados bajo licencia CC BY 3.0.
 # Elaboración de la página web
 
 ## Desarrollo del código HTML
 
 ### Desarrollo del `header`
+Para el header se decidió utilizar HTML y SCSS puro. Se siguió un diseño basado en los _wireframes_ proporcionados en el enunciado de la práctica, con una barra superior en la que se mostrara, a la izquierda, el logo principal del club, y, a la derecha, el menú de navegación con las diferentes páginas que conforman el sitio web. Estos elementos fueron distribuidos fácilmente a través de la propiedad `display: flex` y situados adecuadamente mediante `align-items:center` y `justify-content: space between`. Sin embargo, se decidió, desde un enfoque orientado hacie una mayor _responsiveness_, crear un menú _responsive_ para cuando el tamaño de pantalla dispositivo fuera menor.
 
+![Muestra del menù de navegación _responsive_ que aparece en dispositivos pequeños](doc_imgs/pantalla_men%C3%BA_responsive.png){ width=200px }
+
+Para su funcionamiento, se añadió una amplia `@media` _query_ que se aplicaría en dispositivos de anchura menor a `40em`. En estos casos, aparecería una imagen de «hamburguesa» en la esquina superior derecha de la pantalla (configurada a través de CSS como un fondo). Esta imagen, ligada a un _event listener_ de javascript, abriría un menú configurado a través de `display: grid`, que mostraría las opciones de navegación. Para conseguir el efecto de sombreado que se aplica al resto de elementos de la página, se añadió un borde expandido a `1000vh` con una opacidad del 50% a través de la propiedad `box-shadow`. Para que el menú no tuviese colisión con el resto de elementos de la página, se le añadió al propiedad CSS `position: fixed`. Además, para que este apareciese en una posición (en cuanto a profundidad) más prioritaria respecto al resto de elementos, se aplicó la propiedad `z-index: 950`. Se usó la propiedad `gap` para configurar la distancia entre los elementos de la lista que conforma el menú.
 ### Desarrollo del `main`
 
 ### Desarrollo del `footer`
