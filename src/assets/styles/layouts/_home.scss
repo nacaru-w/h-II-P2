@@ -66,7 +66,8 @@ header {
         inset: 7rem 3rem auto;
         background: whitesmoke;
         border-radius: 4px;
-        box-shadow: 0 0 0.3em rgb(0, 0, 0, 0.25), 0 0 0 1000vmax rgb(0 0 0 / 0.5);
+        box-shadow: 0 0 0.3em rgb(0, 0, 0, 25%), 0 0 0 1000vmax rgb(0 0 0 / 50%);
+        z-index: 950;
 
         ul.nav-list {
           text-align: center;
@@ -127,11 +128,120 @@ header {
 
 }
 
+// Rules that apply to the main section of the main page
+//
+// This is CSS-grid based
+
+main {
+  background-color: $normal-background-color;
+
+  div.main-title {
+    text-align: center;
+    font-weight: bolder;
+    font-size: clamp(2.25rem, 9.333vw - .875rem, 3.5rem);
+  }
+
+  // This is a query that is only active in browsers that support  CSS Grid
+
+  @supports (display: grid) {
+    div.wrapper {
+      display: grid;
+      padding: 8%;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    // This rotates the chessboard and adapts its size
+
+    @media (min-width: 60em) {
+      div.wrapper {
+        transform: rotate(45deg);
+        padding: 10em;
+
+        div.seven {
+          transform: rotate(-90deg);
+        }
+
+        div#six>span.chess,
+        div#eleven>span.mates {
+          transform: rotate(-45deg);
+        }
+
+      }
+    }
+
+  }
+
+  // This covers the code when the browser does NOT support CSS grid
+
+  @supports not (display:grid) {
+
+    div.wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding-block: 12em;
+    }
+
+    div.wrapper>div {
+      display: none;
+      width: 7em;
+      height: auto;
+
+    }
+
+  }
+
+  div.wrapper {
+    width: min(80%, 900px);
+    margin: 0 auto;
+
+    div.seven {
+      background-image: url("../images/queen.svg");
+      background-size: contain;
+      background-position: center;
+    }
+
+    div.ten {
+      background-image: url("../images/king.svg");
+      background-size: contain;
+      background-position: center;
+    }
+
+    div#six,
+    div#eleven {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: $display-font;
+      text-shadow: 2px 2px $darker-colorful-element-color;
+      color: $colorful-element-color;
+      font-size: clamp(1.25rem, 7.333vw - .875rem, 1.5rem);
+    }
+
+  }
+
+  div.wrapper>div {
+    aspect-ratio: 1;
+  }
+
+  div.wrapper>div.white-checker {
+    background-color: $secondary-contrast-color;
+  }
+
+  div.wrapper>div:not(.white-checker) {
+    background-color: $colorful-element-color;
+  }
+
+}
+
+
+
 //
 // Rules that apply to the footer
 //
 // The footer has been organized in two elements: a main footer that holds most the information
-// and a second, sub-footer that includes copyright and authorship info. 
+// and a second, sub-footer the goes below it 
 
 footer {
   background-color: $secondary-contrast-color;
@@ -158,10 +268,6 @@ footer {
     width: min(90%, 1000px);
     padding-top: 1em;
     margin: 0 auto;
-
-    // p.column-title {
-    //   border-bottom: solid 1px $darker-eggplant;
-    // }
 
     div.left-side-footer {
       padding-inline: .5em;
