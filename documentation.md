@@ -139,7 +139,7 @@ Para los iconos de la web, decidió usarse el paquete de Sports por ainul muttaq
 
 # Elaboración de la página web
 
-## Desarrollo del código HTML y SCSS
+## Desarrollo de encabezado y pie
 
 ### Desarrollo del `header`
 Para el header se decidió utilizar HTML y SCSS puro. Se siguió un diseño basado en los _wireframes_ proporcionados en el enunciado de la práctica, con una barra superior en la que se mostrara, a la izquierda, el logo principal del club, y, a la derecha, el menú de navegación con las diferentes páginas que conforman el sitio web. 
@@ -152,11 +152,23 @@ En cuanto al código SCSS, estos elementos fueron distribuidos fácilmente a tra
 
 Para su funcionamiento, se añadió una amplia `@media` _query_ que se aplicaría en dispositivos de anchura menor a `40em`. En estos casos, aparecería una imagen de «hamburguesa» en la esquina superior derecha de la pantalla (configurada a través de CSS como un fondo). Esta imagen, ligada a un _event listener_ de javascript que aplica una clase `data-visible`, ligada a un código css `display:block` o `display:none` a través de un _toggle_, abriría un menú configurado a través de `display: grid`, que mostraría las opciones de navegación. Para conseguir el efecto de sombreado que se aplica al resto de elementos de la página, se añadió un borde expandido a `1000vh` con una opacidad del 50% a través de la propiedad `box-shadow`. Para que el menú no tuviese colisión con el resto de elementos de la página, se le añadió al propiedad CSS `position: fixed`. Además, para que este apareciese en una posición (en cuanto a profundidad) más prioritaria respecto al resto de elementos, se aplicó la propiedad `z-index: 950`. Se usó la propiedad `gap` para configurar la distancia entre los elementos de la lista que conforma el menú.
 
-### Desarrollo del `main`
-
 ### Desarrollo del `footer`
+Para el desarrollo del _footer_, se siguió, de igual forma, la distribución proporcionada por los _wireframes_ del enunciado de la práctica. Sin embargo, para esta sección estos no eran demasiado específicos, por lo que se decidió seguir un enfoque propio en su diseño y elaboración.
+
+De esta forma, se creó un _footer_ dividido en dos secciones. Una sección superior, determinada mediante un elemento `div` con clase `main-footer`, y una interior, determinada con un elemento `div` con clase `sub-footer`. El `main-footer` contiene, a su vez, dos elementos `div`: uno `left-side-footer` y otro `right-side-footer`. En el espacio izquierdo de este footer se halla un botón que lleva a la página de contacto e información sobre una posible aplicación para el club, configurados como elementos `button` y `div`, respectivamente. En el otro lado, se halla información relativa a la dirección, configurada dentro de una lista no ordenada. El `sub-footer` contiene tres secciones, distribuidas en elementos `div`. De izquierda a derecha, estas corresponden al logo principal de la página, una sección de enlaces a las diferentes paǵinas de la web, conformadas como una lista no ordenada, y enlaces a redes sociales a través de iconos `svg`.
+
+## Desarrollo del `main`: parte principal de las páginas
+
+### Desarrollo del `main` de `index.html`
+
+<!-- Falta documentar el resto de la realización de la portada principal -->
+
+#### Uso de `@supports`
 
 
+Con el objetivo de adaptar la hoja de estilos a navegadores que no soportan CSS grid, se hizo uso de la _query_ `@supports`. Esta permite implementar código solo en las instancias en las que el navegador posea soporte para esa característica.
+
+En este caso, se utilizaron dos _queries_ distintas: una `@supports (display: grid)`, para dispositivos que sí soportan este rasgo; y una `@supports not (display:grid)`, que cubre los casos en los que esta característica no es implementable. Se testeó el código para comprobar que la visualización, aún siendo significativamente más sencilla, era la adecuada en estos dispositivos.
 
 # Publicación del sitio web
 
