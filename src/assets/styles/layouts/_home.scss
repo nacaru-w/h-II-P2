@@ -146,7 +146,8 @@ main {
   @supports (display: grid) {
     div.wrapper {
       display: grid;
-      padding: 8%;
+      padding-block: 7em;
+      padding-inline: 8%;
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }
 
