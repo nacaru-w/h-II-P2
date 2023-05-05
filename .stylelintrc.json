@@ -7,7 +7,10 @@
             "px",
             "%",
             "deg",
-            "vw"
+            "vw",
+            "fr",
+            "s",
+            "vmax"
         ],
         "selector-class-pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
         "string-quotes": "double",
