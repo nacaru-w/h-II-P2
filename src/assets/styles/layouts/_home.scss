@@ -28,6 +28,11 @@ a:visited {
   color: none;
 }
 
+em {
+  font-weight: bold;
+  font-style: normal;
+}
+
 // header
 
 header {
@@ -250,9 +255,17 @@ main.main-members {
   font-family: $normal-font;
   color: $text-color;
 
+  a {
+    text-decoration: underline;
+  }
+
   h2 {
     padding-block: 1em;
     text-shadow: 2px 2px $darker-colorful-element-color;
+  }
+
+  p.contact-us {
+    padding-block: 2em;
   }
 
   div.member-card-block {
@@ -299,11 +312,29 @@ main.main-members {
 // Contact.html
 
 main {
+
+  a {
+    text-decoration: underline;
+  }
+
   div.main-contact {
     padding-block: 2em;
     width: min(90%, 1000px);
     margin: 0 auto;
     font-family: $normal-font;
+
+    h2.accordion-header {
+      margin-top: 0;
+
+      button.accordion-button {
+        font-family: $normal-font;
+      }
+
+      button.accordion-button:not(.collapsed)::after {
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='rgb(255,167,182)' fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+      }
+
+    }
 
     div.alert-info {
 
@@ -343,12 +374,9 @@ main {
       height: 10em;
     }
 
-    a {
-      text-decoration: underline;
-    }
-
     button {
       font-family: $normal-font;
+      font-weight: bold;
       border: none;
       cursor: pointer;
       background-color: $normal-background-color;
@@ -416,6 +444,10 @@ footer {
         font-weight: bold;
         border-radius: 6px;
         padding: .75em .5em;
+      }
+
+      button:hover {
+        background-color: $colorful-element-color;
       }
 
       div.mobile-app-info {
