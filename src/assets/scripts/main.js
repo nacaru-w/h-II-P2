@@ -21,8 +21,6 @@ const navToggle = document.querySelector(".mobile-nav-toggle");
 const primaryNav = document.querySelector(".primary-navigation");
 const warnMessage = document.querySelector(".alert-info");
 const closeWarnMessage = document.querySelector("button.close");
-const collapseElementList = document.querySelectorAll('.collapse')
-const collapseList = [...collapseElementList].map(collapseEl => new bootstrap.Collapse(collapseEl))
 
 navToggle.addEventListener("click", () => {
     primaryNav.hasAttribute("data-visible") ? navToggle.setAttribute("aria-expanded", false) : navToggle.setAttribute("aria-expanded", true);
