@@ -18,7 +18,19 @@
 // @import "some-node-module";
 // @import "@some-company/some-node-module";
 
-// @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../node_modules/bootstrap/scss/functions";
+
+@import "../../../node_modules/bootstrap/scss/variables";
+
+@import "variable_overrides";
+
+@import "../../../node_modules/bootstrap/scss/maps";
+
+@import "../../../node_modules/bootstrap/scss/mixins";
+
+@import "../../../node_modules/bootstrap/scss/root";
+
+@import "../../../node_modules/bootstrap/scss/alert";
 
 /**
  * Import layouts
