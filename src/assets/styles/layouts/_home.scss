@@ -33,7 +33,7 @@ a:visited {
 header {
   padding-top: 2em;
   font-family: $normal-font;
-  background-color: whitesmoke;
+  background-color: $normal-background-color;
 
   div.container {
     margin: 0 auto;
@@ -132,7 +132,7 @@ header {
 //
 // This is CSS-grid based
 
-main {
+main.index-main {
   background-color: $normal-background-color;
 
   div.main-title {
@@ -237,6 +237,81 @@ main {
 }
 
 
+// Rules that apply to the main section of the contact page
+//
+// Contact.html
+
+main {
+  div.main-contact {
+    padding-block: 2em;
+    width: min(90%, 1000px);
+    margin: 0 auto;
+    font-family: $normal-font;
+
+    div.alert-info {
+
+      padding-right: 2em;
+
+      button.close {
+        position: absolute;
+        font-size: 1.5em;
+        top: 1px;
+        right: 5px;
+        border: none;
+        background-color: transparent;
+        align-items: right;
+        justify-content: right;
+        color: $darker-pink;
+        cursor: pointer;
+      }
+    }
+
+  }
+
+  form.form {
+    display: flex;
+    flex-direction: column;
+    width: min(90%, 450px);
+    justify-content: center;
+    margin: 0 auto;
+
+    input,
+    textarea {
+      font-family: $normal-font;
+      font-size: 1em;
+    }
+
+    textarea {
+      text-align: left;
+      height: 10em;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+
+    button {
+      font-family: $normal-font;
+      border: none;
+      cursor: pointer;
+      background-color: $normal-background-color;
+      border: 2px $colorful-element-border-color;
+      border-radius: 0.375rem;
+      font-size: 0.9em;
+      margin-block: 1em;
+    }
+
+    button:hover {
+      background-color: $colorful-element-color;
+    }
+
+  }
+
+  form.form>* {
+    text-align: center;
+    padding-block: 0.5em;
+  }
+}
 
 //
 // Rules that apply to the footer
