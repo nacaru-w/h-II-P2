@@ -1,6 +1,18 @@
 // Bootstrap variable overrides
 $info: rgb(248, 221, 201);
+$primary: rgb(248, 221, 201);
+$body-bg: #000;
+$body-color: pink;
+$bs-body-color: rgb(254, 248, 244);
+$accordion-button-bg: unset;
+$accordion-button-active-bg: rgb(254, 248, 244);
+$accordion-icon-color: pink;
+$accordion-button-active-color: unset;
+$input-focus-border-color: rgb(248, 221, 201);
+$accordion-button-focus-box-shadow: rgb(248, 221, 201);
+$primary-text-emphasis: pink;
 
 $theme-colors: (
+    "primary": $primary,
     "info": $info,
 );
