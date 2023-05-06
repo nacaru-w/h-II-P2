@@ -236,6 +236,63 @@ main.index-main {
 
 }
 
+// Rules that apply to the main section of the members page
+//
+// Members.html
+
+main.main-members {
+  display: flex;
+  flex-direction: column;
+  width: min(90%, 1000px);
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-family: $normal-font;
+  color: $text-color;
+
+  h2 {
+    padding-block: 1em;
+    text-shadow: 2px 2px $darker-colorful-element-color;
+  }
+
+  div.member-card-block {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    div.member-card {
+      width: 20em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-block: 2em;
+
+      div.image-container {
+
+        img {
+          clip-path: circle(50% at 50% 50%);
+        }
+
+      }
+
+      p.member-description {
+        padding-inline: 1.5em;
+        height: 8em;
+      }
+
+      div.elo {
+        padding-bottom: 2em;
+      }
+
+    }
+
+  }
+
+}
+
 
 // Rules that apply to the main section of the contact page
 //
