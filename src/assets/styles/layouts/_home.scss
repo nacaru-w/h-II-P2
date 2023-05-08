@@ -33,6 +33,19 @@ em {
   font-style: normal;
 }
 
+p,
+blockquote {
+  line-height: 1.5em;
+}
+
+h3 {
+  font-size: 1.4em;
+}
+
+h2 {
+  font-size: 1.75em;
+}
+
 // header
 
 header {
@@ -62,6 +75,10 @@ header {
       display: none;
     }
 
+    .primary-navigation {
+      z-index: 950;
+    }
+
     // Media query dealing with the whole responsive nav menu
 
     @media (max-width: 40em) {
@@ -72,7 +89,6 @@ header {
         background: whitesmoke;
         border-radius: 4px;
         box-shadow: 0 0 0.3em rgb(0, 0, 0, 25%), 0 0 0 1000vmax rgb(0 0 0 / 50%);
-        z-index: 950;
 
         ul.nav-list {
           text-align: center;
@@ -241,6 +257,128 @@ main.index-main {
 
 }
 
+// Rules that apply to the main section of the blog page
+//
+// Blog.html
+
+main.blog {
+  font-family: $normal-font;
+  background-color: $normal-background-color;
+
+  p {
+    margin: 0;
+    padding-block: 1em;
+  }
+
+  blockquote {
+    font-size: 1.2em;
+  }
+
+  div.checked-background {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 20em;
+    width: 100%;
+    background-image: url(../images/backgrounds/checked_background.png);
+    background-size: contain;
+    background-repeat: round;
+
+    div.blog-title-image-container {
+
+      width: 10em;
+      height: auto;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+
+    }
+
+    h2 {
+      margin: 0.25em;
+
+      span.say-chess {
+        text-shadow: 2px 2px lightcoral;
+      }
+
+    }
+
+  }
+
+  div.narrative-blog {
+    padding-block: 4em;
+    width: min(90%, 1000px);
+    margin: 0 auto;
+    color: $text-color;
+
+    h3.blog-title,
+    p.date {
+      text-align: center;
+    }
+
+    p.date {
+      padding: 0 0 1em 0;
+    }
+
+    div.motto-and-intro {
+      display: flex;
+      flex-wrap: wrap;
+
+      blockquote,
+      p {
+        flex: auto;
+      }
+
+      blockquote {
+        width: 25%;
+      }
+
+      p {
+        width: 65%;
+      }
+
+    }
+
+    ol {
+      border-block: solid $text-color;
+
+      h3 {
+        font-size: 1.25em;
+      }
+
+    }
+
+    figure {
+
+      margin-inline: 0;
+
+      div.image-container {
+
+        img {
+
+          width: 100%;
+          height: auto;
+
+        }
+
+      }
+
+      figcaption {
+        font-size: 0.9em;
+        text-align: center;
+      }
+
+    }
+
+  }
+
+}
+
 // Rules that apply to the main section of the members page
 //
 // Members.html
@@ -261,7 +399,7 @@ main.main-members {
 
   h2 {
     padding-block: 1em;
-    text-shadow: 2px 2px $darker-colorful-element-color;
+    text-shadow: 2px 2px lightcoral;
   }
 
   p.contact-us {
@@ -297,7 +435,7 @@ main.main-members {
       }
 
       div.elo {
-        padding-bottom: 2em;
+        padding-block: 1.5em;
       }
 
     }
@@ -307,7 +445,7 @@ main.main-members {
 }
 
 
-// Rules that apply to the main section of the contact page
+// Rules that apply to the main section of the contact and FAQ page
 //
 // Contact.html
 
