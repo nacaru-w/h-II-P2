@@ -49,7 +49,7 @@ h2 {
 // header
 
 header {
-  padding-top: 2em;
+  padding-block: 1em;
   font-family: $normal-font;
   background-color: $normal-background-color;
 
@@ -345,6 +345,7 @@ main.blog {
     }
 
     ol {
+      padding-block: 1em;
       border-block: solid $text-color;
 
       h3 {
@@ -373,6 +374,29 @@ main.blog {
         text-align: center;
       }
 
+    }
+
+    h4.other-posts-title {
+      text-align: center;
+    }
+
+    img.card-img-top {
+      padding-block: 10%;
+      padding-inline: 20%;
+      fill: $text-color;
+      background-image: url(../images/backgrounds/checked_background.png);
+      background-size: contain;
+      background-repeat: round;
+
+    }
+
+    h5.card-title {
+      text-align: center;
+    }
+
+    p.card-text {
+      font-weight: normal;
+      font-size: 0.9em;
     }
 
   }
