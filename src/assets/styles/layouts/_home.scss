@@ -1,3 +1,21 @@
+// Unfortunately required for function below to work
+
+@use "sass:color";
+
+// Function that inverts color
+
+@function invert($color) {
+  $red: 255 - color.red($color);
+  $green: 255 - color.green($color);
+  $blue: 255 - color.blue($color);
+
+  @return rgb($red, $green, $blue);
+}
+
+//
+// Global rules
+//
+
 * {
   box-sizing: border-box;
 }
@@ -10,8 +28,6 @@ ul {
 body {
   margin: 0 auto;
 }
-
-// Global rules for links
 
 a {
   text-decoration: none;
@@ -46,7 +62,10 @@ h2 {
   font-size: 1.75em;
 }
 
-// header
+//
+// Rules that apply to the header
+//
+// views/header.html
 
 header {
   padding-block: 1em;
@@ -81,14 +100,14 @@ header {
 
     // Media query dealing with the whole responsive nav menu
 
-    @media (max-width: 40em) {
+    @media (width <=40em) {
       .primary-navigation {
         display: none;
         position: fixed;
         inset: 7rem 3rem auto;
         background: whitesmoke;
         border-radius: 4px;
-        box-shadow: 0 0 0.3em rgb(0, 0, 0, 25%), 0 0 0 1000vmax rgb(0 0 0 / 50%);
+        box-shadow: 0 0 0.3em rgb(0 0 0 / 25%), 0 0 0 1000vmax rgb(0 0 0 / 50%);
 
         ul.nav-list {
           text-align: center;
@@ -104,7 +123,7 @@ header {
       }
 
       .mobile-nav-toggle[aria-expanded="false"] {
-        background-image: url('../images/Hamburger_icon.svg');
+        background-image: url("../images/Hamburger_icon.svg");
         background-size: contain;
         background-position: center;
       }
@@ -149,6 +168,7 @@ header {
 
 }
 
+//
 // Rules that apply to the main section of the main page
 //
 // This is CSS-grid based
@@ -174,7 +194,7 @@ main.index-main {
 
     // This rotates the chessboard and adapts its size
 
-    @media (min-width: 60em) {
+    @media (width > 60em) {
       div.wrapper {
         transform: rotate(45deg);
         padding: 10em;
@@ -196,7 +216,6 @@ main.index-main {
   // This covers the code when the browser does NOT support CSS grid
 
   @supports not (display:grid) {
-
     div.wrapper {
       display: flex;
       flex-direction: row;
@@ -257,6 +276,7 @@ main.index-main {
 
 }
 
+//
 // Rules that apply to the main section of the blog page
 //
 // Blog.html
@@ -276,19 +296,17 @@ main.blog {
 
   div.checked-background {
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     height: 20em;
     width: 100%;
-    background-image: url(../images/backgrounds/checked_background.png);
+    background-image: url("../images/backgrounds/checked_background.png");
     background-size: contain;
     background-repeat: round;
 
     div.blog-title-image-container {
-
       width: 10em;
       height: auto;
 
@@ -322,7 +340,7 @@ main.blog {
     }
 
     p.date {
-      padding: 0 0 1em 0;
+      padding: 0 0 1em;
     }
 
     div.motto-and-intro {
@@ -355,13 +373,10 @@ main.blog {
     }
 
     figure {
-
       margin-inline: 0;
 
       div.image-container {
-
         img {
-
           width: 100%;
           height: auto;
 
@@ -384,7 +399,7 @@ main.blog {
       padding-block: 10%;
       padding-inline: 20%;
       fill: $text-color;
-      background-image: url(../images/backgrounds/checked_background.png);
+      background-image: url("../images/backgrounds/checked_background.png");
       background-size: contain;
       background-repeat: round;
 
@@ -403,6 +418,7 @@ main.blog {
 
 }
 
+//
 // Rules that apply to the main section of the members page
 //
 // Members.html
@@ -423,7 +439,7 @@ main.main-members {
 
   h2 {
     padding-block: 1em;
-    text-shadow: 2px 2px lightcoral;
+    text-shadow: 2px 2px invert($link-color);
   }
 
   p.contact-us {
@@ -433,7 +449,6 @@ main.main-members {
   div.member-card-block {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
     justify-content: space-around;
     align-items: center;
 
@@ -446,7 +461,6 @@ main.main-members {
       padding-block: 2em;
 
       div.image-container {
-
         img {
           clip-path: circle(50% at 50% 50%);
         }
@@ -468,13 +482,12 @@ main.main-members {
 
 }
 
-
+//
 // Rules that apply to the main section of the contact and FAQ page
 //
 // Contact.html
 
 main {
-
   a {
     text-decoration: underline;
   }
@@ -499,7 +512,6 @@ main {
     }
 
     div.alert-info {
-
       padding-right: 2em;
 
       button.close {
@@ -565,6 +577,8 @@ main {
 //
 // The footer has been organized in two elements: a main footer that holds most the information
 // and a second, sub-footer the goes below it 
+//
+// views/footer.html
 
 footer {
   background-color: $secondary-contrast-color;
@@ -640,7 +654,6 @@ footer {
     }
 
     div.right-side-footer {
-
       .column-title {
         font-weight: bold;
       }
