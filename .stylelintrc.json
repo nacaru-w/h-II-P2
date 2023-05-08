@@ -16,6 +16,7 @@
         "string-quotes": "double",
         "color-function-notation": "modern",
         "no-descending-specificity": null,
-        "scss/comment-no-empty": null
+        "scss/comment-no-empty": null,
+        "declaration-block-no-duplicate-properties": null
     }
 }
