@@ -52,7 +52,10 @@ Se modificó el archivo de configuración de Stylelint en `.stylelintrc.json`. P
             "px",
             "%",
             "deg",
-            "vw"
+            "vw",
+            "fr",
+            "s",
+            "vmax"
         ]
     }
 }
@@ -104,7 +107,43 @@ También se desactivó la regla estándar `comment-no-emptyp` que forma parte de
 "scss/comment-no-empty": null
 ```
 
-## Instalación de bootstrap
+Asimismo, se añadió una excepción a la regla `declaration-block-no-duplicate-properties`. Esto se hizo porque interfería en las variables que se declararon para realizar el _override_ de los estilos por defecto de los componentes de Bootstrap. Se hizo de forma similar al resto de excepciones:
+
+```json
+"declaration-block-no-duplicate-properties": null 
+```
+
+## Instalación de dependencia externa: `w3c-html-validator`
+
+Como depedencia externa a instalar según lo exigía el enunciado, se decidió instalar una dependencia que permite ejecutar el [servicio de validación de W3C](https://validator.w3.org/) de forma local a través de la consola de comandos. Existe una herramienta actualizada recientemente y soportada en la actualidad para este fin llamada [W3C HTML Validator](https://www.npmjs.com/package/w3c-html-validator). Esta fue instalada a través de la ejecución del siguiente código:
+
+```bash
+npm install --save-dev w3c-html-validator
+```
+
+Para facilitar su uso, se configuró el archivo `package.json`, añadiendo el siguiente comando al objeto `scripts`:
+
+```json
+  "scripts": {
+    "validator": "html-validator --ignore='Element “include” not allowed as child of element “body”'"
+  }
+```
+
+La lína que usa el comando opcional `--ignore` se añadió para evitar errores de compatibilidad entre el análisis realizado por esta extensión y el uso de la dependencia `posthtml-include`, que permite unificar varios archivos `html` distintos mediante el elemento `include`, tal y como se realizó en la elaboración de los archivos hallados en la carpeta `src/views`.
+
+El script se ejecutaría por tanto mediante el siguiente comando:
+
+```bash
+npm run validator
+```
+
+Una vez ejecutado el código, aparecerían en consola los errores a solucionar. Una vez solucionados todos, la herramienta de validación arroja un mensaje positivo que indica que el archivo pasa el análisis de la W3C.
+
+![Mensaje de éxito que aparece al no darse errores en el archivo `html`](doc_imgs/captura_validator.png)
+
+Esta análisis se realizó una vez terminada la redacción de todo el código `html` de la página. Una vez considerados todos los archivos como válidos, se mantuvo este código de forma definitiva.[^1] 
+
+## Instalación e implementación de bootstrap
 
 Se integró Bootstrap en el repositorio local, ejecutando el siguiente comando:
 
@@ -112,6 +151,67 @@ Se integró Bootstrap en el repositorio local, ejecutando el siguiente comando:
 npm i --save bootstrap @popperjs/core
 ```
 
+Para poder importar el javascript necesario para algunas de las funcionalidades que incluyen los componentes de Bootstrap, se añadió el siguiente código al archivo `main.js`:
+
+```js
+import * as bootstrap from 'bootstrap';
+```
+
+Respecto a la importación de módulos de Bootstrap, en un principio se decidió realizar una importación completa, añadiendo el código `@import '~bootstrap/scss/bootstrap';` al archivo de importación `main.scss`. Esto, sin embargo, se descartó posteriormente porque aumentó de forma considerable el tiempo de carga de la web. En su lugar, se decidió activar módulos de Bootstrap selectivamente, de forma que se realizaron las siguientes importaciones: 
+
+```scss
+@import "../../../node_modules/bootstrap/scss/functions";
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/maps";
+@import "../../../node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/root";
+@import "../../../node_modules/bootstrap/scss/alert";
+@import "../../../node_modules/bootstrap/scss/accordion";
+@import "../../../node_modules/bootstrap/scss/card";
+@import "../../../node_modules/bootstrap/scss/transitions";
+```
+
+Estas correspondían a los módulos mínimos necesarios para que los componentes implementados en el proyecto funcionaran adecuadamente. 
+
+### Uso de componentes de Bootstrap
+
+Una vez realizada la importación de los módulos, se decidió utilizar los siguientes componentes:
+
+* Un [acordeón](https://getbootstrap.com/docs/5.3/components/accordion/). Este se colocó en la página `contact.html` y serviría para definir las FAQ (Frequently Asked Questions) del club.
+* Un [mensaje de alerta](https://getbootstrap.com/docs/5.3/components/alerts/). Este se posicionó también en la página `contact.html`, inmediatamente inferior a la sección de las FAQ.
+* Un [botón de cerrado](https://getbootstrap.com/docs/5.3/components/close-button/), que se incluyó como parte del mensaje de alerta mencionado en el punto anterior, al cual se le aplicó javascript personalizado para que tuviera una funcionalidad.
+* Un [grupo de tarjetas](https://getbootstrap.com/docs/5.3/components/card/#card-groups), empleado en la parte final de la página `blog.html`. El objetivo de este componente es contener previsualizaciones con enlaces a otros posibles artículos del blog.
+
+Para la personalización de los componentes, además de realizarse a través de la hoja de estilos general `_home.scss` mediante la modificación de diferentes propiedades, se creó el archivo `variable_overrides.scss`. Este, que sería importado a `main.scss`, contiene el código correspondiente a la sobreescritura de las variables por defecto de Bootstrap que permiten la modificación del aspecto de los componentes. 
+
+En las siguientes secciones se describe la aplicación y personalización de los componentes:
+
+#### Acordeón
+
+El componente de acordeón se modificó ampliamente para adaptarlo a las expectativas y al estilo de la web:
+
+* Se cambiaron los atributos, añadiendo `collapse` a todas las clases de los tres segmentos que lo componen para que estos apareciesen cerrados por defecto. Se hizo de forma similar con el valor del atributo `aria-expanded`, que se determinó como `false` por defecto, con el objetivo de que los lectores de pantallas y otros dispositivos orientados a la accesibilidad puedan interpretar el menú como cerrado.
+* Se crearon variables para sobreescribir las que Bootstrap aplica por defecto. En este caso se añadieron las siguientes, aunque no todas acabaron utilizándose:
+
+```scss
+$accordion-button-bg: unset;
+$accordion-button-active-bg: rgb(254 248 244);
+$accordion-icon-color: pink;
+$accordion-button-active-color: unset;
+$accordion-button-focus-box-shadow: rgb(248 221 201);
+```
+
+* Se modificaron aspectos de la hoja de estilos SCSS que no se pudo modificar mediante la sobreescritura de variables. Específicamente destaca el caso del color del botón de cerrado del acordeón, que, tras intentarlo a través del método descrito en el punto anterior, se decidió que era menos complejo cambiar el estilo mediante la implementación de la propiedad `background-image` del selector `button.accordion-button:not(.collapsed)::after`, cuyo `path fill` se configuró mediante el valor del color deseado, entre otros aspectos.
+
+El resultado final permitió obtener un acordeón dinámico que se adaptaba bien a la estética elegida para la web.
+
+#### Mensaje de alerta
+
+
+#### Botón de cerrado
+
+
+#### Grupo de tarjetas
 
 
 ## Justificación y aplicación según la guía de estilo
@@ -119,7 +219,7 @@ npm i --save bootstrap @popperjs/core
 
 ## Elección de la paleta de colores
 
-Para la paleta de colores, se testearon varias combinaciones utilizando al aplicacion [coolors.co](coolors.co). Finalmente, se decidió usar la siguiente paleta de colores:
+Para la paleta de colores, se probaron varias combinaciones utilizando al aplicacion [coolors.co](coolors.co). Finalmente, se decidió usar la siguiente paleta de colores:
 
 ![Paleta de colores del sitio](doc_imgs/color_palette.png){ width=400px }
 
@@ -172,6 +272,14 @@ Con el objetivo de adaptar la hoja de estilos a navegadores que no soportan CSS 
 
 En este caso, se utilizaron dos _queries_ distintas: una `@supports (display: grid)`, para dispositivos que sí soportan este rasgo; y una `@supports not (display:grid)`, que cubre los casos en los que esta característica no es implementable. Se testeó el código para comprobar que la visualización, aún siendo significativamente más sencilla, era la adecuada en estos dispositivos.
 
+### Desarrollo del `main` de `members.html`
+
+
+### Desarrollo del `main` de `blog.html`
+
+
+### Desarrollo del `main` de `contact.html`
+
 # Publicación del sitio web
 
 
@@ -179,6 +287,10 @@ En este caso, se utilizaron dos _queries_ distintas: una `@supports (display: gr
 
 * En cuanto a iconos, se usó el paquete de Sports de ainul muttaqin en The Noun Project (disponible [en este enlace](https://thenounproject.com/browse/collection-icon/sports-118176/?p=1)), liberados bajo licencia CC BY 3.0.
 
-* Las imágenes de los miembros del club halladas en el archivo `members.html` han sido generadas por IA a través de la página Generated.Photos. Estas se encuentran en dominio público.[^1]
+* Las imágenes de los miembros del club halladas en el archivo `members.html` han sido generadas por IA a través de la página Generated.Photos. Estas se encuentran en dominio público.[^2]
 
-[^1]: La falta de elegibilidad de las imágenes generadas por inteligencia artificial para la protección de derechos de autor se debe a la ausencia de autoría humana. Aunque los algoritmos utilizados para generar estas imágenes son el resultado de la creatividad y el esfuerzo intelectual humano, la imagen resultante en sí misma es considerada por expertos como carente de originalidad humana y, por lo tanto, no cumpliría los requisitos para la protección de derechos de autor. Esta situación podría cambiar dependiendo del sentido de la jurisprudencia, pero al no existirla, se interpreta que tal protección no existe.
+* Las foto de torneo «Players at a chess tournament» fue descargada de Wikimedia Commons. Su autor es Andreas Kontokanis, que la liberó bajo licencia CC BY-SA 2.0 (disponible [en este enlace](https://commons.wikimedia.org/wiki/File:Noutsos_Stamoulis_chess_tournament.jpg)).
+
+[^2]: La falta de elegibilidad de las imágenes generadas por inteligencia artificial para la protección de derechos de autor se debe a la ausencia de autoría humana. Aunque los algoritmos utilizados para generar estas imágenes son el resultado de la creatividad y el esfuerzo intelectual humano, la imagen resultante en sí misma es considerada por expertos como carente de originalidad humana y, por lo tanto, no cumpliría los requisitos para la protección de derechos de autor. Esta situación podría cambiar dependiendo del sentido de la jurisprudencia, pero al no existirla, se interpreta que tal protección no existe.
+
+[^1]: Se ignoraron los errores en los archivos de la carpeta `src/views`, al ser estos trozos de HTML que serían incorporados en otros archivos HTML y que por tanto daban errores relacionados con la ausencia de elemento `head`. 
