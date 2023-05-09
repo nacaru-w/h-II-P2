@@ -32,7 +32,7 @@ Se creó el archivo `.stylelintrc.json`, con la configuración adaptada a los cr
 
 Como guía de estilo principal, tanto para HTML y CSS, se decidió utilizar la guía de [https://codeguide.co/](https://codeguide.co/). Se utilizó esta guía de estilo teniendo en cuenta que incluye directrices para el código HTML y CSS y que estas no entran mucho en profundidad. Se hizo de esta forma teniendo en cuenta que el tamaño de la tarea para la PEC 1 no es lo suficientemente voluminoso como para requerir la aplicación de una guía de estilo más elaborada. 
 
-Independientemente de esta guía de estilo, yo como usuario utilizo un linter de código personalizado que realiza una serie de modificaciones (cambia aspectos como el indentado, el número de saltos de línea, etc) cada vez que realizo un guardado en la aplicación VSCode. Esto puede entrar en conflicto con algunas de las reglas especificadas en la guía de estilo elegida. El linter personalizado que uso llevo aplicándolo durante años, así que decidí dar prioridad a las modificaciones realizadas por este ante las recomendaciones de codeguide.co.
+Independientemente de esta guía de estilo, yo como usuario utilizo un linter de código personalizado que realiza una serie de modificaciones (cambia aspectos como el indentado, el número de saltos de línea, etc) cada vez que realizo un guardado en la aplicación VSCode. Esto puede entrar en conflicto con algunas de las reglas especificadas en la guía de estilo elegida. El linter personalizado que uso lleva aplicándose en todos mis proyectos durante años, así que decidí dar prioridad a las modificaciones realizadas por este ante las recomendaciones de codeguide.co.
 
 Se llevó a cabo una revisión de las normas que se podrían agregar a .stylelintrc.json para cumplir con los criterios establecidos.
 
@@ -75,7 +75,7 @@ Asimismo, se modificaron los scripts del archivo `package.json` para añadir la 
   }
 ```
 
-También se añadió una regla que tiene como objetivo estandarizar el nombre de las clases. Esto se hizo a través de una regla que permite especificar el patrón de los selectores de clase de Stylelint con la especificación de una expresión regular como valor:
+También se añadió una regla que tiene como objetivo estandarizar el nombre de las clases, tal y como se recomienda en la guía de estilo elegida. Esto se hizo a través de una regla que permite especificar el patrón de los selectores de clase de Stylelint con la especificación de una expresión regular como valor:
 
 ```json
 "selector-class-pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
@@ -112,6 +112,24 @@ Asimismo, se añadió una excepción a la regla `declaration-block-no-duplicate-
 ```json
 "declaration-block-no-duplicate-properties": null 
 ```
+
+### Justificación y aplicación según la guía de estilo
+
+El set de reglas estándar de CSS de stylelint `stylelint-config-standard-scss` se eligió porque ese sería el lenguaje utilizado para la confección de la hoja de estilos de la página. Se comprobaron que las reglas especificadas por el mismo no entraban en conflicto con la guía de estilo de codeguide.co elegida. En los casos en los que esto se daba, se añadieron excepciones, tal y como se han descrito en el apartado anterior.
+
+La restricción del número de unidades utilizadas se usó con el objetivo de que la especificación de las dimensiones de los elementos de la página fuera más homogénea, con la justificación de que, a mayor cantidad de unidades, más difícil es cuadrar y maquetar el proyecto. Las unidades fueron elegidas en base a lo más utilizado por mi parte en el pasado. Su elección se encuentra más desarrollada en profundida en la sección «Desarrollo del código SCSS» posterior.
+
+La regla `selector-class-pattern`, que limita el nombre de las clases a aquellas con minúsculas, números y un guión, se realizó en base a las recomendaciones especificadas en la guía de estilo de codeguide.co, en la sección «Class names», que recomienda lo siguiente:
+
+>Keep classes lowercase and use dashes (not underscores or camelCase). Dashes serve as natural breaks in related class (e.g., `.btn` and `.btn-danger`).
+
+La especificación del tipo de comillas permitido también se extrajo de las recomendaciones de la guía de estilo utilizada. En concreto, lo especificado en el apartado «Syntax»:
+
+>Always use double quotes, never single quotes, on attributes.
+
+La regla que introduce la obligatoriedad de utilizar la notación moderna para la designación de colores se añadió porque la guía de estilo elegida recomienda el uso de la notación `rgba()` en la sección «Colors».
+
+La decisión de eliminar la regla `no-descending-specificity` se hizo en base a la cantidad de _nesting_ empleado en el proyecto. Esta regla se anuló de forma posterior al comprobar que el funcionamiento de la misma no era el adecuado y de que existían una gran cantidad de falsos errores en el proceso de análisis de Stylelint.
 
 ## Instalación de dependencia externa: `w3c-html-validator`
 
@@ -201,18 +219,77 @@ $accordion-button-active-color: unset;
 $accordion-button-focus-box-shadow: rgb(248 221 201);
 ```
 
-* Se modificaron aspectos de la hoja de estilos SCSS que no se pudo modificar mediante la sobreescritura de variables. Específicamente destaca el caso del color del botón de cerrado del acordeón, que, tras intentarlo a través del método descrito en el punto anterior, se decidió que era menos complejo cambiar el estilo mediante la implementación de la propiedad `background-image` del selector `button.accordion-button:not(.collapsed)::after`, cuyo `path fill` se configuró mediante el valor del color deseado, entre otros aspectos.
+* Se modificaron aspectos de la hoja de estilos SCSS que no se pudo modificar mediante la sobreescritura de variables. Específicamente destaca el caso del color del botón de cerrado del acordeón, que, tras intentarlo a través del método descrito en el punto anterior, se decidió que era menos complejo cambiar el estilo mediante la implementación de la propiedad `background-image` del selector `button.accordion-button:not(.collapsed)::after`, cuyo `path fill` se configuró mediante el valor del color deseado. Entre otros aspectos, también se modificó el padding por defecto.
 
 El resultado final permitió obtener un acordeón dinámico que se adaptaba bien a la estética elegida para la web.
 
 #### Mensaje de alerta
 
+Para el mensaje de alerta se usó el de tipo «info», configurado con las clases de Bootstrap `alert alert-info`. Este se configuró de forma que utilizase un color de fondo y letra diferentes. Para esto, Bootstrap realiza un mapeo de colores en base a lo definido como color primario, por lo que para llevar a cabo el _override_, tuvo que hacerse otro mapeo que sustituyese al mapeo original. Esto se realizó definiendo un color para el tema «info» nuevo y aplicando `map` sobre el mismo:
+
+```scss
+$info: rgb(248 221 201);
+
+// Mapping
+$theme-colors: (
+    "info": $info
+);
+```
+
+Esto no solo sustituyó el color de fondo, sino que aplicó un color distinto a la letra y al borde.
 
 #### Botón de cerrado
 
+Bootstrap incluye como parte de sus componentes un icono de botón cerrado con ciertas opciones de interactividad: posibilidad de convertirlo en botón desactivado fácilmente, aplicación de ciertas propiedades ante un _hover_, etc.
+
+Se decidió utilizar este tipo de botón como forma estándar para el proyecto. Aunque en la realización de esta pŕactica solo se usó una vez, puede contribuir a una estandarización más sencilla en proyectos de mayor envergadura.
+
+Entre sus modificaciones, se eliminó el cuadrado que ocupaba en el fondo mediante la aplicación de la declaración `background-color: transparent`, y se le aplicó la variable `$darker-pink` definida en el archivo `_variables.scss`.
 
 #### Grupo de tarjetas
 
+Como parte de la sección final del archivo `blog.html`, se añadió una serie de enlaces a otros _posts_ ficticios del blog organizados dentro de un grupo de tarjetas.
+
+Estos se aplicaron como un `div` de clase de Bootstrap `card-group`. No se realizó ningun modificación a través del _overriding_ de variables, pero se cambiaron algunos estilos a través del código SCSS. Además, se añadieron imágenes para cada tarjeta y se adaptó el fondo de este espacio a través de la propiedad `background-image`. 
+
+## Utilización de las características de Sass
+
+### Variables
+Esta característica se ha utilizado de forma habitual en la elaboración del proyecto. Concretamente, la mayor parte de ellas se han englobado dentro del archivo `_variables.scss`.
+
+Se han definido variables para las fuentes, para los colores estándar y para los colores de los modos _light_/_dark_.
+
+### Anidado
+El anidado se aplicó en las reglas SCSS incluídas en el archivo `_home.scss`. Este se desarrolló de forma ámplia en la estructuración de las mismas, siguiendo la estructura de anidado utilizada en la confección del archivo `html`.
+
+### Funciones
+Se ha desarrollado una función que se ha utilizado para modificar las reglas SCSS de forma que se apliquen unas distintas cuando la configuración temática del navegador del usuario varía entre _light_ y _dark_. Esta se define al comienzo del archivo `_home.scss` de la siguiente forma:
+
+```scss
+$dark-mode-detection: true;
+
+@mixin darkmode {
+  @if $dark-mode-detection {
+    @media(prefers-color-scheme: dark) {
+      @content;
+    }
+  }
+}
+```
+
+Después se hizo llamada en el código posterior de la manera desarrollada en el siguiente ejemplo:
+
+```scss
+@include darkmode {
+  border: 2px solid $body-font-color-dark-theme-titles;
+}
+```
+
+### Parciales
+El código SCSS se ha desarrollado a lo largo de dos archivos distintos: `_home.scss` y `_variables.scss` que se compilan de forma conjunta en el archivo `main.scss`.
+
+### Importación
+Para la compilación de los _partials_ definidos en la sección anterior, se utiliza `@import`.
 
 ## Justificación y aplicación según la guía de estilo
 
